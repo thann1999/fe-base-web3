@@ -1,1 +1,3 @@
-# hero-nft
+## Lottery dapp
+
+## Using ethereum
