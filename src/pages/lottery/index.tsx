@@ -1,10 +1,12 @@
+/* eslint-disable no-nested-ternary */
 import { useEffect, useMemo, useState } from 'react';
 
 import { Icon } from '@iconify/react';
 import { useConnectWallet } from '@web3-onboard/react';
 import { Button, Statistic, Tooltip, Typography } from 'antd';
 import clsx from 'clsx';
-import { Contract, formatEther, parseUnits } from 'ethers';
+import dayjs from 'dayjs';
+import { Contract, parseUnits } from 'ethers';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 import CountUp from 'react-countup';
 
@@ -39,14 +41,17 @@ export default function LotteryPage() {
   const [{ wallet }] = useConnectWallet();
   const { network, signer } = useEtherWalletStore();
   const [lotteryContract, setLotteryContract] = useState<Contract>();
+  const hasLotteryEnded = dayjs(endDate).isBefore(dayjs());
 
   useEffect(() => {
     if (network) {
-      const contract = new Contract(
-        LOTTERY_CONTRACT.ADDRESS[Number(network.chainId.toString())],
-        LOTTERY_CONTRACT.ABI,
-        signer
-      );
+      const address = LOTTERY_CONTRACT.ADDRESS[Number(network.chainId.toString())];
+
+      if (!address) {
+        return;
+      }
+
+      const contract = new Contract(address, LOTTERY_CONTRACT.ABI, signer);
       getContractInfo(contract);
       setLotteryContract(contract);
     }
@@ -62,14 +67,14 @@ export default function LotteryPage() {
   );
 
   const handleEnterLottery = async () => {
-    if (!lotteryContract) {
+    if (!lotteryContract || hasLotteryEnded) {
       return;
     }
 
     try {
       setIsEntering(true);
       await lotteryContract.enter({
-        value: parseUnits('0.005', 'eth'),
+        value: parseUnits('0.005', 'ether'),
       });
       await getNewPlayers(lotteryContract);
       setIsEntering(false);
@@ -117,7 +122,7 @@ export default function LotteryPage() {
             type="primary"
             size="large"
             loading={isLoadingContract || isEntering}
-            disabled={isAlreadyEntered}
+            disabled={isAlreadyEntered || hasLotteryEnded}
             onClick={handleEnterLottery}
           >
             {isAlreadyEntered ? (
@@ -125,6 +130,8 @@ export default function LotteryPage() {
                 You already entered
                 <Icon icon="ion:ticket" fontSize={16} className="text-yellow-400 ml-2" />
               </Typography.Text>
+            ) : hasLotteryEnded ? (
+              'THIS ROUND HAS ENDED'
             ) : (
               'ENTER THE LOTTERY'
             )}

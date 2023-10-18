@@ -35,7 +35,8 @@ export default defineConfig({
         replace({
           'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
           'import.meta.env': JSON.stringify({
-            INFURA_API_KEY: process.env.INFURA_API_KEY,
+            VITE_REACT_APP_BASE_NAME: process.env.VITE_REACT_APP_BASE_NAME,
+            VITE_REACT_INFURA_API_KEY: process.env.VITE_REACT_INFURA_API_KEY,
           }),
         }),
       ],

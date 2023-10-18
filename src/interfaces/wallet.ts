@@ -1,5 +1,5 @@
 import type { TokenSymbol } from '@web3-onboard/common';
-import { AbstractProvider, BrowserProvider, Network, Signer } from 'ethers';
+import { BrowserProvider, Network, Signer } from 'ethers';
 
 export interface Account {
   address: string;
@@ -8,8 +8,9 @@ export interface Account {
 }
 
 export interface EtherWalletConfig {
-  provider: BrowserProvider | AbstractProvider;
+  provider: BrowserProvider | null;
   signer: Signer | null;
   network: Network | null;
+  isSupportedChain: boolean;
   setProvider: (provider: BrowserProvider) => void;
 }

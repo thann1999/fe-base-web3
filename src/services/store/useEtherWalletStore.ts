@@ -1,17 +1,19 @@
-import { ethers } from 'ethers';
 import { create } from 'zustand';
 
-import { DEFAULT_URL_PROVIDER } from '@root/constants';
+import { CHAINS } from '@root/constants';
 import { EtherWalletConfig } from '@root/interfaces';
 
 const useEtherWalletStore = create<EtherWalletConfig>((set) => ({
-  provider: ethers.getDefaultProvider(DEFAULT_URL_PROVIDER),
+  provider: null,
   signer: null,
   network: null,
+  isSupportedChain: false,
   async setProvider(provider) {
+    const network = await provider.getNetwork();
     set({
       provider,
-      network: await provider.getNetwork(),
+      network,
+      isSupportedChain: Object.keys(CHAINS).includes(network.chainId.toString()),
       signer: await provider.getSigner(),
     });
   },
