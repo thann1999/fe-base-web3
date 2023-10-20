@@ -1,10 +1,8 @@
-import { Suspense } from 'react';
-
 import clsx from 'clsx';
 import { Helmet } from 'react-helmet';
 import { Outlet, useMatches } from 'react-router-dom';
 
-import { HeaderComponent, LoadingScreen } from '@root/components';
+import { HeaderComponent } from '@root/components';
 import { ThemeMode } from '@root/constants';
 import { useThemeStore } from '@root/services/store';
 
@@ -20,7 +18,7 @@ export default function EmptyLayout() {
   return (
     <div className={clsx('min-h-screen', { 'bg-dark': isDarkTheme, 'bg-light': !isDarkTheme })}>
       <Helmet>
-        <title>Web3 Defi - {pageTitle}</title>
+        <title>Shadow Knight - {pageTitle}</title>
       </Helmet>
 
       <HeaderComponent />

@@ -61,7 +61,7 @@ export default function HeaderComponent() {
 
   return (
     <>
-      <Header className="flex items-center justify-between xl:px-32 bg-transparent h-20">
+      <Header className="flex items-center justify-between xl:px-32 bg-transparent h-[5.8rem] xl:h-[5.5rem]">
         <Space direction="horizontal" size="small">
           <img
             src={logo}

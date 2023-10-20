@@ -1,12 +1,6 @@
 const INFURA_KEY = import.meta.env.VITE_REACT_INFURA_API_KEY;
 
 export const CHAINS = {
-  1: {
-    id: 1,
-    token: 'ETH',
-    label: 'Ethereum Mainnet',
-    rpcUrl: `https://mainnet.infura.io/v3/${INFURA_KEY}`,
-  },
   11155111: {
     id: 11155111,
     token: 'ETH',
@@ -22,7 +16,6 @@ export const CHAINS = {
 };
 
 export enum ChainId {
-  EthereumMainnet = 1,
   Sepolia = 11155111,
   Linea = 59140,
 }

@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
+import { useSetChain } from '@web3-onboard/react';
 import { Button, Space, Typography } from 'antd';
 
 import switchNetworkImg from '@assets/images/switch-network.png';
+import { ChainId } from '@root/constants';
 import { ModalBodyProps } from '@root/interfaces';
 
 export default function SwitchChainModalBody({ closeModal }: ModalBodyProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [, setChain] = useSetChain();
 
   const handleDisconnect = () => {
     closeModal();
@@ -14,6 +17,10 @@ export default function SwitchChainModalBody({ closeModal }: ModalBodyProps) {
 
   const handleSwitchNetwork = async () => {
     setIsLoading(true);
+
+    await setChain({
+      chainId: ChainId.Sepolia as any,
+    });
     setIsLoading(false);
   };
 
