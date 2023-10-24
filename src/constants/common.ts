@@ -96,13 +96,13 @@ export const HEADER_MENU: HeaderMenuItem[] = [
     label: 'Mint (Coming soon)',
     href: getMintPath(),
     key: RouteKey.MintNFT,
-    isDisabled: true,
+    disabled: true,
   },
   {
     label: 'Stake (Coming soon)',
     href: '',
     key: RouteKey.Stake,
-    isDisabled: true,
+    disabled: true,
   },
 ];
 

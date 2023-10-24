@@ -1,20 +1,22 @@
 import '@translation/i18n';
 import { Suspense, useEffect } from 'react';
 
-import { Web3OnboardProvider, useUpdateTheme } from '@web3-onboard/react';
-import { ConfigProvider, theme } from 'antd';
+import { useAccountCenter, useUpdateTheme } from '@web3-onboard/react';
+import { ConfigProvider, Grid, theme } from 'antd';
 import { RouterProvider } from 'react-router-dom';
 
 import { LoadingScreen } from '@components';
-import { web3Wallet } from '@configs';
 import { ThemeMode } from '@constants';
 import { renderRoutes, routes } from '@routes/routes';
 import { useThemeStore } from '@services/store';
 import variables from '@styles/_variables.module.scss';
 
+const { useBreakpoint } = Grid;
 function App() {
   const appTheme = useThemeStore((state) => state.appTheme);
   const updateTheme = useUpdateTheme();
+  const updateAccount = useAccountCenter();
+  const { sm } = useBreakpoint();
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -24,6 +26,13 @@ function App() {
     root.classList.add(appTheme);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appTheme]);
+
+  useEffect(() => {
+    updateAccount({
+      minimal: !sm,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sm]);
 
   return (
     <ConfigProvider

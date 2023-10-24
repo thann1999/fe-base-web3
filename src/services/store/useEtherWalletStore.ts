@@ -7,7 +7,7 @@ const useEtherWalletStore = create<EtherWalletConfig>((set) => ({
   provider: null,
   signer: null,
   network: null,
-  isSupportedChain: false,
+  isSupportedChain: true,
   async setProvider(provider) {
     const network = await provider.getNetwork();
     set({

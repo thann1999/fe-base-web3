@@ -38,7 +38,7 @@ export interface HeaderMenuItem {
   label: string;
   key: string;
   href: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
 export interface ThemeState {
