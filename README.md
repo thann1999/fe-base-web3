@@ -1,3 +1,3 @@
-## Lottery dapp
+## FE Base Web3 Project
 
-## Using ethereum
+Base Web3 project that using ReactJs, ethers, tailwind, antd, web3 onboard
